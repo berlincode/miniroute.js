@@ -4,6 +4,8 @@ miniroute.js
 A small javascript url router (only around 650 bytes minified and gzipped) designed for
 single page apps.
 
+[demo page](https://rawgit.com/elastic/miniroute.js/master/demo.html)
+
 Support for:
 - named vars
 - regexp support
@@ -13,7 +15,6 @@ Support for:
 No other dependencies required.
 
 Inspired by flask/werkzeug routes. 
-
 
 Usage
 -----
@@ -95,13 +96,12 @@ Convenient wrapper around url() with encoding: urlEncoded(). Use it like this:
 
     document.getElementById('your_id').href = "#" + r.urlEncoded("language", {"language": "lua"}, {"more": "information"});
 
-Please view the demo.html for further examples and more details.
+Please view the [demo.html](./demo.html) for further examples and more details.
 
 Public repository
 ---------------------
 
 https://github.com/elastic/miniroute.js
-
 
 Copyright and license
 ---------------------
