@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+		<title>miniroute.js example page</title>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+</head>
+<body>
+
+		<h1>
+				miniroute.js example page
+		</h1>
+
+		Click the follwing links and have a look at the source code.
+		<ul id="links">
+				<!-- some links which will be initializes below -->
+				<li><a id="link0" href="#">link 0</a></li>
+				<li><a id="link1" href="#">link 1</a></li>
+				<li><a id="link2" href="#">link 2</a></li>
+				<li><a id="link3" href="#">link 3</a></li>
+				<li><a id="link4" href="#">link 4</a></li>
+				<li><a id="link5" href="#">link 5</a></li>
+		</ul>
+
+		<p>
+				message:<br/>
+				<span id='out'></span>
+		</p>
+		<p>
+				all parameters:
+				<span id='parameters'></span>
+		</p>
+
+<script src="miniroute.js"></script>
+<script>
+
+// wrap the javascript code
+(function(){
+
+		var r = new MiniRoute();
+
+		// set default route for url '' and name it 'home'
+		// on access do a redirect to the 'start_page'
+    r.addRoute('', 'home', function (p) {
+				location.replace("#" + r.urlEncoded("start_page"));
+				// print complete information
+				document.getElementById('parameters').textContent =  JSON.stringify(p);
+		});
+
+		// define start page at '/start_url'
+    r.addRoute('/start_url', 'start_page', function (p) {
+				document.getElementById('out').textContent = "You are on the miniroute.js test page";
+				// print complete information
+				document.getElementById('parameters').textContent =  JSON.stringify(p);
+		});
+
+		// another simple route called 'imprint'
+		r.addRoute('/imprint', 'imprint', function () {
+				document.getElementById('out').textContent = "This is the imprint page";
+				// print complete information
+				document.getElementById('parameters').textContent =  JSON.stringify(p);
+		});
+
+		// define a route with a named varible 'name' of default type 'str'
+		// call /users/robert -> r.params.name will = 'robert'
+		r.addRoute('/users/<name:str>', 'users', function (p) {
+				// access the named parameter
+				document.getElementById('out').textContent = "name: " + p.params.name;
+				// print all information
+				document.getElementById('parameters').textContent =  JSON.stringify(p);
+		});
+
+		// define the custom type 'lang' using a javscript regular expression 
+    r.addType('lang', '(python|lua|ruby)');
+
+		// create a route with name varible 'language' of the custom type 'lang'
+		r.addRoute('/nice_language/<language:lang>', 'language', function (p) {
+				// access the named parameter
+				document.getElementById('out').textContent = "a nice language: " + p.params.language;
+				// print all information
+				document.getElementById('parameters').textContent =  JSON.stringify(p);
+		});
+
+		// hash-based routing
+		function process() {
+				var hash = location.hash || '#';
+
+				if (! r.run(hash.substr(1)))
+				{
+						/* catch errors */
+						document.getElementById('out').textContent = "Error: no matching route found";
+						document.getElementById('parameters').textContent = "";
+				}
+		}
+
+		// add to event listener
+		window.addEventListener('hashchange', process);
+		process();
+
+		// Now we are using the urlEncoded() function to generate urls
+		// from routes
+
+		// create a simple url from our defined routes
+		document.getElementById('link0').href = "#" + r.urlEncoded("start_page");
+		document.getElementById('link0').textContent = "start page";
+
+		// another simple url from the imprint
+		document.getElementById('link1').href = "#" + r.urlEncoded("imprint");
+		document.getElementById('link1').textContent = "imprint";
+
+		// create a url for route 'users' with the named parameter 'name' = 'robert'
+		document.getElementById('link2').href = "#" + r.urlEncoded("users", {"name": "robert"});
+		document.getElementById('link2').textContent = "select user robert";
+
+		// show that parameters are escaped automatically
+		document.getElementById('link3').href = "#" + r.urlEncoded("users", {"name": "escaped sequence: <!@#$&;>"});
+		document.getElementById('link3').textContent = "escaping example";
+
+		// route with our custom type 'lang'
+		document.getElementById('link3').href = "#" + r.urlEncoded("language", {"language": "python"});
+		document.getElementById('link3').textContent = "custom type 'lang'";
+
+		// url with additional QSA (query string append) parameters 
+		document.getElementById('link4').href = "#" + r.urlEncoded("language", {"language": "lua"}, {"more": "information"});
+		document.getElementById('link4').textContent = "custom type 'lang' with QSA parameters";
+
+		// invalid url
+		document.getElementById('link5').href = "#this_is_not_routed";
+		document.getElementById('link5').textContent = "unknown route";
+
+// wrap end
+})();
+
+</script>
+
+</body>
+</html>
