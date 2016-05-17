@@ -1,4 +1,6 @@
-/*! Copyright (c) 2014, Ulf Bartel / @license: New-style BSD */
+/* jshint undef: true, unused: true */
+
+/*! MiniRoute.js: Copyright (c) 2014, Ulf Bartel / @license: New-style BSD license */
  
 function MiniRoute() {
     /* 
@@ -8,7 +10,7 @@ function MiniRoute() {
 
         Inspired by flask/werkzeug routes. 
 
-        Public repository: https://github.com/elastic/miniroute.js
+        Public repository: https://github.com/berlincode/miniroute.js
     */
 
     /* 
@@ -127,10 +129,8 @@ MiniRoute.prototype = {
 
         /* split url into path and parameter part */
         if (url_split = url.match(/^([^\?#]*)\??([^\#]*)$/)) {
-            /*
-            Parse additional query parameters first, since named parameter from
-            route have priority. They might overwrite the query parameters.
-            */
+
+            /* Parse additional query parameters first */
             while (match = param_reg.exec(url_split[2])) {
                 qsa[match[1]] = decodeURIComponent(match[2]);
             }

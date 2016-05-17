@@ -4,7 +4,7 @@ miniroute.js
 A small javascript url router (only around 650 bytes minified and gzipped) designed for
 single page apps.
 
-[demo page](https://rawgit.com/elastic/miniroute.js/master/demo.html)
+[demo page](https://rawgit.com/berlincode/miniroute.js/master/demo.html)
 
 Support for:
 - named vars
@@ -101,7 +101,7 @@ Please view the [demo.html](./demo.html) for further examples and more details.
 Public repository
 ---------------------
 
-https://github.com/elastic/miniroute.js
+https://github.com/berlincode/miniroute.js
 
 Copyright and license
 ---------------------
