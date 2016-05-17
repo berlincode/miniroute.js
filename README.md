@@ -106,6 +106,6 @@ https://github.com/berlincode/miniroute.js
 Copyright and license
 ---------------------
 
-Code and documentation copyright 2014, Ulf Bartel. Code is licensed under the
+Code and documentation copyright Ulf Bartel. Code is licensed under the
 [new-style BSD license](./LICENSE.txt).
 

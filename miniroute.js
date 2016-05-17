@@ -1,6 +1,6 @@
 /* jshint undef: true, unused: true */
 
-/*! MiniRoute.js: Copyright (c) 2014, Ulf Bartel / @license: New-style BSD license */
+/*! MiniRoute.js: Copyright (c) Ulf Bartel / @license: New-style BSD license */
  
 function MiniRoute() {
     /* 
